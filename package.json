@@ -1,0 +1,39 @@
+{
+  "name": "my-signatures",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "test": "vitest run --silent",
+    "test:watch": "vitest watch",
+    "lhci": "lhci autorun",
+    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop"
+  },
+  "dependencies": {
+    "@nuxt/image": "^1.8.1",
+    "@nuxtjs/supabase": "^1.4.2",
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "nuxt": "^3.14.159",
+    "nuxt-security": "^2.0.0",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.11.1",
+    "@lhci/cli": "^0.14.0",
+    "@nuxt/test-utils": "^3.14.2",
+    "@vue/test-utils": "^2.4.6",
+    "eslint": "^9.11.1",
+    "happy-dom": "^15.7.4",
+    "lint-staged": "^15.2.7",
+    "playwright-core": "^1.47.2",
+    "vitest": "^2.1.1"
+  },
+  "packageManager": "pnpm@8.11.0+sha512.9df87c16c98db27b4e051d787e67f2207ec47e809ccb07bf7b5ec4acdcd1613355839a38d0b900144923d6a7057700b74d2a0ccb1558beb241647a1206a9a7ab"
+}
