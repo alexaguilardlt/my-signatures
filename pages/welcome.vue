@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient()
+
 async function logoutUser() {
   const { error } = await supabase.auth.signOut()
 
@@ -11,10 +12,6 @@ async function logoutUser() {
     navigateTo('/') // O la URL que prefieras
   }
 }
-
-definePageMeta({
-  middleware: 'auth'
-})
 </script>
 <template>
   <h1>Welcome page</h1>
