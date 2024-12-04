@@ -1,9 +1,6 @@
 <template>
   <div>
-    <nav>
-      <p>Gestor de asignaturas</p>
-      <NuxtLink to="/login">Login</NuxtLink>
-    </nav>
+    <Navbar></Navbar>
     <slot />
     <footer>
       <p>Esto es el footer de mi pagina</p>
