@@ -1,66 +1,37 @@
 <script setup lang="ts">
-const supabase = useSupabaseClient()
-const authStore = useAuthStore()
-const email = ref('')
-const password = ref('')
-const emailLogin = ref('')
-const passwordLogin = ref('')
+import LoginForm from '@/components/LoginForm.vue'
+import RegisterForm from '@/components/RegisterForm.vue'
 
-const signUpNewUser = async () => {
-  const { data, error } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value
-  })
+const currentView = shallowRef(LoginForm)
 
-  if (error) {
-    console.error('Error en el registro:', error.message)
-  } else {
-    navigateTo('/welcome')
-  }
-}
-
-const logout = () => {
-  authStore.logout()
-  router.push('/')
-}
-
-const loginUser = async () => {
-  const { user, error } = await supabase.auth.signInWithPassword({
-    email: emailLogin.value,
-    password: passwordLogin.value
-  })
-
-  if (error) {
-    if (error.message === 'Email not confirmed') {
-    } else {
-      console.error('Error en el login:', error.message)
-    }
-  } else {
-    authStore.login()
-    navigateTo('/welcome')
-  }
-}
-
-async function resendConfirmationEmail(email) {
-  const { error } = await supabase.auth.api.resendConfirmationEmail(email)
-
-  if (error) {
-    console.error('Error al reenviar el correo de confirmación:', error.message)
-  } else {
-    console.log('Correo de confirmación reenviado con éxito')
-  }
+const switchView = (view: 'LoginForm' | 'RegisterForm') => {
+  currentView.value = view === 'LoginForm' ? LoginForm : RegisterForm
 }
 </script>
 
 <template>
-  <div>
-    <button @click="signUpNewUser">Crear cuenta nueva</button>
-    <input type="email" v-model="email" />
-    <input type="password" v-model="password" />
-  </div>
-  <div>
-    <button @click="loginUser">Login</button>
-    <input type="email" v-model="emailLogin" />
-    <input type="password" v-model="passwordLogin" />
+  <div class="auth-container">
+    <div class="auth-box">
+      <component :is="currentView" @switch-view="switchView" />
+    </div>
   </div>
 </template>
+
+<style lang="css">
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+</style>

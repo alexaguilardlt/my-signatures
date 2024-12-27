@@ -1,3 +1,7 @@
+<script setup>
+const { logout } = useAuth()
+const authStore = useAuthStore()
+</script>
 <template>
   <nav class="bg-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -8,8 +12,9 @@
         <div v-if="authStore.isAuthenticated" class="hidden md:flex space-x-4">
           <NuxtLink
             class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            to="/login"
-            >dentro del if</NuxtLink
+            to="/"
+            @click="logout"
+            >Logout</NuxtLink
           >
         </div>
         <div v-else class="hidden md:flex space-x-4">
@@ -41,10 +46,3 @@
     </div>
   </nav>
 </template>
-<script setup>
-import { useAuthStore } from '../stores/auth'
-const authStore = useAuthStore()
-const route = useRoute()
-const router = useRouter()
-console.log('navbar', authStore.isAuthenticated)
-</script>
