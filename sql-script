@@ -1,0 +1,91 @@
+CREATE DATABASE SchoolYearDB;
+USE SchoolYearDB;
+
+-- Table: School Year
+CREATE TABLE SchoolYear (
+    SchoolYearID INT AUTO_INCREMENT PRIMARY KEY,
+    StartDate DATE NOT NULL,
+    EndDate DATE NOT NULL
+);
+
+-- Table: Holiday
+CREATE TABLE Holiday (
+    HolidayID INT AUTO_INCREMENT PRIMARY KEY,
+    Date DATE NOT NULL,
+    Description VARCHAR(255),
+    SchoolYearID INT NOT NULL,
+    FOREIGN KEY (SchoolYearID) REFERENCES SchoolYear(SchoolYearID) ON DELETE CASCADE
+);
+
+-- Table: Vacation Period
+CREATE TABLE VacationPeriod (
+    VacationPeriodID INT AUTO_INCREMENT PRIMARY KEY,
+    StartDate DATE NOT NULL,
+    EndDate DATE NOT NULL,
+    SchoolYearID INT NOT NULL,
+    FOREIGN KEY (SchoolYearID) REFERENCES SchoolYear(SchoolYearID) ON DELETE CASCADE
+);
+
+-- Table: Teacher
+CREATE TABLE Teacher (
+    TeacherID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(150) NOT NULL,
+    Email VARCHAR(100),
+    Phone VARCHAR(15),
+    SchoolYearID INT NOT NULL,
+    FOREIGN KEY (SchoolYearID) REFERENCES SchoolYear(SchoolYearID) ON DELETE CASCADE
+);
+
+-- Table: Unavailable Day
+CREATE TABLE UnavailableDay (
+    UnavailableDayID INT AUTO_INCREMENT PRIMARY KEY,
+    Date DATE NOT NULL,
+    Reason VARCHAR(255),
+    TeacherID INT NOT NULL,
+    FOREIGN KEY (TeacherID) REFERENCES Teacher(TeacherID) ON DELETE CASCADE
+);
+
+-- Table: Subject
+CREATE TABLE Subject (
+    SubjectID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Description VARCHAR(255),
+    TeacherID INT NOT NULL,
+    FOREIGN KEY (TeacherID) REFERENCES Teacher(TeacherID) ON DELETE CASCADE
+);
+
+-- Table: Group
+CREATE TABLE ClassGroup (
+    ClassGroupID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Description VARCHAR(255),
+    SubjectID INT NOT NULL,
+    FOREIGN KEY (SubjectID) REFERENCES Subject(SubjectID) ON DELETE CASCADE
+);
+
+-- Table: Time Period
+CREATE TABLE TimePeriod (
+    TimePeriodID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL, -- Example: "September-June", "October-May"
+    StartMonth INT NOT NULL,   -- Example: 9 for September
+    EndMonth INT NOT NULL      -- Example: 5 for May
+);
+
+-- Table: Schedule
+CREATE TABLE Schedule (
+    ScheduleID INT AUTO_INCREMENT PRIMARY KEY,
+    Weekday ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') NOT NULL,
+    StartTime TIME NOT NULL,
+    EndTime TIME NOT NULL,
+    ClassGroupID INT NOT NULL,
+    TimePeriodID INT NOT NULL,
+    FOREIGN KEY (ClassGroupID) REFERENCES ClassGroup(ClassGroupID) ON DELETE CASCADE,
+    FOREIGN KEY (TimePeriodID) REFERENCES TimePeriod(TimePeriodID) ON DELETE CASCADE
+);
+
+-- Insert initial time periods
+INSERT INTO TimePeriod (Name, StartMonth, EndMonth)
+VALUES
+('September-June', 9, 6),
+('October-May', 10, 5);

@@ -1,7 +1,7 @@
 import { setup, $fetch } from '@nuxt/test-utils/e2e'
 import { describe, expect, test } from "vitest";
 
-const NUXT_TEXT = 'Welcome to Nuxt!'
+const NUXT_TEXT = 'Gestor de asignaturas'
 
 describe('app', async () => {
   await setup()

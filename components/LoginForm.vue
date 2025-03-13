@@ -19,20 +19,46 @@ const emitSwitchView = (view: 'LoginForm' | 'RegisterForm') => {
 
 <template>
   <div>
-    <h2>Iniciar sesión</h2>
+    <h2 class="text-2xl">Iniciar sesión</h2>
     <form @submit.prevent="handleLogin">
-      <div>
-        <label for="email">Correo electrónico</label>
-        <input type="email" v-model="email" id="email" required />
+      <div class="mb-5">
+        <label
+          for="email"
+          class="mb-3 block text-base font-medium text-[#07074D]"
+        >
+          Correo Electrónico
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          v-model="email"
+          required
+        />
       </div>
-      <div>
-        <label for="password">Contraseña</label>
-        <input type="password" v-model="password" id="password" />
+      <div class="mb-5">
+        <label
+          for="password"
+          class="mb-3 block text-base font-medium text-[#07074D]"
+        >
+          Contraseña
+        </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          v-model="password"
+          required
+        />
       </div>
       <button type="submit">Iniciar sesión</button>
     </form>
-    <p>¿No tienes cuenta?</p>
-    <a href="#" @click.prevent="emitSwitchView('RegisterForm')">Regístrate</a>
+    <p class="mt-5">
+      ¿No tienes cuenta?
+      <a href="#" @click.prevent="emitSwitchView('RegisterForm')">Regístrate</a>
+    </p>
   </div>
 </template>
 
